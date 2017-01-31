@@ -1,4 +1,4 @@
-class TicTacToe {
+   class TicTacToe{ 
     constructor() {
       this.player1='x';
       this.player2='o';
@@ -9,6 +9,7 @@ class TicTacToe {
         [null,null,null]
       ]
       this.winner = null;
+      this.counter=0;
     }
 
     getCurrentPlayerSymbol() {
@@ -16,9 +17,11 @@ class TicTacToe {
     }
 
     nextTurn(rowIndex, columnIndex) {
-      if(isNaN(this.field[rowIndex][columnIndex])){
+      
+      if(this.field[rowIndex][columnIndex] != null){
         return;
       }
+      this.counter++;
       this.field[rowIndex][columnIndex] = this.currentPlayer;
       if(this.currentPlayer == 'x'){
         this.currentPlayer = this.player2;
@@ -29,42 +32,47 @@ class TicTacToe {
     }
 
     isFinished() {
-      for (var i = 0; i <= 2; i++) {
+
+    
+      for (var i = 0; i <= 2; i++) 
+      {
         if(this.field[i][0] == this.field[i][1] &&
         this.field[i][0] == this.field[i][2] &&
         this.field[i][0] != null){
-          this.winner = this.field[i][0];
-          console.log("1111");
-          return true;
+          this.winner = this.field[i][0];          
+          this.winner;
         }
         if(this.field[0][i] == this.field[1][i] &&
         this.field[0][i] == this.field[2][i] &&
         this.field[0][i] != null){
-          this.winner = this.field[0][i];
-          console.log("2222");
-          return true;
+          this.winner = this.field[0][i];          
+          return this.winner;
+       }
         }
+        if(this.field[0][0] == this.field[1][1] &&
+        this.field[0][0] == this.field[2][2] &&
+        this.field[0][0] != null){
+        this.winner = this.field[0][0];        
+        return this.winner;
+        }
+        else if(this.field[2][0] == this.field[1][1] &&
+        this.field[2][0] == this.field[0][2] &&
+        this.field[2][0] != null){
+        this.winner = this.field[2][0];        
+        return this.winner;
       }
-      if(this.field[0][0] == this.field[1][1] &&
-      this.field[0][0] == this.field[2][2] &&
-      this.field[0][0] != null){
-        this.winner = this.field[0][0];
-        console.log("3333");
-        return true;
-      }
-      else if(this.field[2][0] == this.field[1][1] &&
-      this.field[2][0] == this.field[0][2] &&
-      this.field[2][0] != null){
-        this.winner = this.field[2][0];
-        console.log("4444");
-        return true;
+      else if(this.counter == 9)
+      {
+        return this.winner;
       }
       else
-        return false;
+        return null;
     }
 
     getWinner() {
-      return this.winner;
+      if(this.isFinished() != null)
+        return this.winner;
+      return null;      
     }
 
     noMoreTurns() {
@@ -78,7 +86,9 @@ class TicTacToe {
     }
 
     isDraw() {
-      if(this.noMoreTurns() && this.winner == null)
+      if(this.isFinished() != null )
+        return false;
+      else if(this.noMoreTurns() && this.winner == null)
         return true;
       return false;
     }
@@ -87,7 +97,6 @@ class TicTacToe {
       return this.field[rowIndex][colIndex];
     }
 }
-
 
 
 module.exports = TicTacToe;

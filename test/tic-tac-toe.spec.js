@@ -3025,7 +3025,7 @@ describe('TicTacToe', () => {
             expect(game.isFinished()).to.equal(true)
 
 
-            game = new TicTacToe();
+            game = new TicTacToe();//
             game.nextTurn(2, 2)
             expect(game.isFinished()).to.equal(false)
 
